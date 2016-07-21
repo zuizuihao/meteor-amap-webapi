@@ -47,7 +47,11 @@ AMapWebAPI.geocode = function (address, callback) {
   }
 
   HTTP.get(host + 'geocode/geo', { params: queryString }, function (error, result) {
-    callback(error, result.data.geocodes[0].location)
+    if (result.data.geocodes.length > 0) {
+      callback(error, result.data.geocodes[0].location)
+    } else {
+      callback('Not Found', null)
+    }
   })
 }
 

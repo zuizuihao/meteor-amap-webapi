@@ -6,6 +6,20 @@ const host = 'http://restapi.amap.com/v3/'
 
 AMapWebAPI = {}
 
+AMapWebAPI.getInputtips = function getInputtips (city, keywords, count, callback) {
+  var queryString = {
+    city: city,
+    count: count,
+    keywords: keywords,
+    key: setting.webapikey
+  }
+
+  HTTP.get(host + 'assistant/inputtips', { params: queryString }, function (error, result) {
+    var tips = JSON.parse(result.content).tips
+    callback(error, tips)
+  })
+}
+
 AMapWebAPI.getDistance = function getDistance (start, end, callback) {
   var queryString = {
     origins: start,
